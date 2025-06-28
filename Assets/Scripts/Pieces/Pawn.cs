@@ -7,22 +7,27 @@ public class Pawn : ChessPiece
     {
         var moves = new List<Vector2Int>();
 
-        int  dir      = Owner == Player.White ? 1 : -1;
-        bool dbl      = PowerUpRules.For(Owner).pawnsAlwaysDouble;
-        bool back     = PowerUpRules.For(Owner).pawnsBackwards;
+        int  dir  = Owner == Player.White ? 1 : -1;
+        var  f    = PowerUpRules.For(Owner);
+        bool dbl  = f.pawnsAlwaysDouble;
+        bool back = f.pawnsBackwards;
 
-        // -------- 1. Vorwärts (1 Feld) --------
+        // ---------- 1. Vorwärts (1 Feld) ----------
         Vector2Int fwd = BoardPos + new Vector2Int(0, dir);
-        if (board.IsEmpty(fwd))
+        if (board.InBounds(fwd) && board.IsEmpty(fwd))
             moves.Add(fwd);
 
-        // -------- 2. Doppelschritt --------
+        // ---------- 2. Doppelschritt ----------
         Vector2Int fwd2 = BoardPos + new Vector2Int(0, 2 * dir);
         bool atStart = Owner == Player.White ? BoardPos.y == 1 : BoardPos.y == 6;
-        if (board.IsEmpty(fwd) && board.IsEmpty(fwd2) && (dbl || atStart))
+        if (board.InBounds(fwd2) &&
+            board.IsEmpty(fwd) && board.IsEmpty(fwd2) &&
+            (dbl || atStart))
+        {
             moves.Add(fwd2);
+        }
 
-        // -------- 3. Rückwärts (optional) --------
+        // ---------- 3. Rückwärts ----------
         if (back)
         {
             Vector2Int backPos = BoardPos - new Vector2Int(0, dir);
@@ -30,7 +35,7 @@ public class Pawn : ChessPiece
                 moves.Add(backPos);
         }
 
-        // -------- 4. Diagonal schlagen + En Passant --------
+        // ---------- 4. Diagonal / En Passant ----------
         Vector2Int[] diag = { new(-1, dir), new(1, dir) };
         foreach (var d in diag)
         {

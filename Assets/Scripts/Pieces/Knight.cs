@@ -23,13 +23,21 @@ public class Knight : ChessPiece
                 moves.Add(p);
         }
 
-        if (PowerUpRules.For(Owner).knightFullCircle)
+        // Power-Up: Full-Circle-Leap (2 Felder gerade in jede Richtung)
+        if (PowerUpRules.For(Owner).knightStraightLeap)
         {
-            int          dir = Owner == Player.White ? 1 : -1;
-            Vector2Int   p   = BoardPos + new Vector2Int(0, 2 * dir);
+            Vector2Int[] straight = {
+                new( 0,  2),
+                new( 0, -2),
+                new( 2,  0),
+                new(-2,  0)
+            };
 
-            if (board.InBounds(p))
+            foreach (var v in straight)
             {
+                var p = BoardPos + v;
+                if (!board.InBounds(p)) continue;
+
                 var piece = board.GetPiece(p);
                 if (piece == null || piece.Owner != Owner)
                     moves.Add(p);

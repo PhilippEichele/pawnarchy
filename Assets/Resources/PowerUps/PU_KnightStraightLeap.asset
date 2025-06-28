@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 316b59ce7637aa1c0a5b28e0ba2bee68, type: 3}
-  m_Name: PU_KnightForwardLeap
+  m_Script: {fileID: 11500000, guid: 580d0b8358ca69068b4c855148a611e4, type: 3}
+  m_Name: PU_KnightStraightLeap
   m_EditorClassIdentifier: 
-  displayName: Knight full circle
+  displayName: Neues Power-Up
   description: 
   icon: {fileID: 0}
