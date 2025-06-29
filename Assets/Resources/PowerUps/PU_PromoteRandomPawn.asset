@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245f894b7e080cb7a65f041e39178f1, type: 3}
   m_Name: PU_PromoteRandomPawn
   m_EditorClassIdentifier: 
-  displayName: QueenRandomPawn
+  displayName: 'ONCE: Qeen a rand pawn'
   description: 
   icon: {fileID: 0}

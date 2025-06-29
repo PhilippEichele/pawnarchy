@@ -18,5 +18,6 @@ public static class PowerUpRules
         public bool pawnsBackwards;      // Bauer darf 1 Feld rückwärts
         public bool knightStraightLeap;  // Pferd: „2 vor“ springen
         public bool bishopPhaseAllies;   // Läufer phasen durch eigene Figuren
+		public bool queenKnightMove;  	 // Königin läuft zusäzlich wie ein Springer
     }
 }

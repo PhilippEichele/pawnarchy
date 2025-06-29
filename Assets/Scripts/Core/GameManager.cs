@@ -13,8 +13,13 @@ public class GameManager : MonoBehaviour
 		currentPlayer = currentPlayer == Player.White ? Player.Black : Player.White;
 
 		if (IsCheckmate())
-			Debug.Log($"Schachmatt! {currentPlayer} gewinnt.");
-		else if (Board.Instance.IsKingInCheck(currentPlayer))
+		{
+			Player winner = currentPlayer == Player.White ? Player.Black : Player.White;
+			WinnerScreen.Instance.Show(winner);      // KEIN Instantiate, KEIN Resources.Load!
+			return;
+		}
+
+		if (Board.Instance.IsKingInCheck(currentPlayer))
 			Debug.Log($"Schach auf {currentPlayer}!");
 	}
 

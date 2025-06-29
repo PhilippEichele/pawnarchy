@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49aa87c69bc92556af591e4427c19db, type: 3}
   m_Name: PU_PawnAlwaysDouble
   m_EditorClassIdentifier: 
-  displayName: Pawn always double
+  displayName: 'PAWN: Double'
   description: 
   icon: {fileID: 0}

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21e3cf293aeda435a76dc0bfbe36538, type: 3}
   m_Name: PU_PawnBackwards
   m_EditorClassIdentifier: 
-  displayName: PawnBackwards
+  displayName: 'PAWN: Backwards'
   description: 
   icon: {fileID: 0}

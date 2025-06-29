@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580d0b8358ca69068b4c855148a611e4, type: 3}
   m_Name: PU_KnightStraightLeap
   m_EditorClassIdentifier: 
-  displayName: Neues Power-Up
+  displayName: 'KNIGHT: Straight Leap'
   description: 
   icon: {fileID: 0}

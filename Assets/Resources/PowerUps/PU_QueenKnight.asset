@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc5ca4cca98b5c9ca6cfce0c3a3cbc8, type: 3}
-  m_Name: PU_ExtraTurn
+  m_Script: {fileID: 11500000, guid: af9f8b9badf2874438861870b752ec7c, type: 3}
+  m_Name: PU_QueenKnight
   m_EditorClassIdentifier: 
-  displayName: ExtraTurn
+  displayName: 'QUEEN: Knight move'
   description: 
   icon: {fileID: 0}

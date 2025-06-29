@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cd1725dc2aa3403b816de4a9ba21b10, type: 3}
   m_Name: PU_BishopPhase
   m_EditorClassIdentifier: 
-  displayName: Bishop go through own pieces
+  displayName: 'BISHOP: phasing'
   description: 
   icon: {fileID: 0}
