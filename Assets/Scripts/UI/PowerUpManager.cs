@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour
 {
-    private List<PowerUp> pool;                        // alle existierenden SO-Assets
+    private List<PowerUp> pool;
     private readonly Dictionary<Player, HashSet<PowerUp>> owned = new()
     {
         { Player.White, new HashSet<PowerUp>() },
@@ -28,9 +28,9 @@ public class PowerUpManager : MonoBehaviour
 
     private void HandleFiveMoves(Player owner, int batch)
     {
-        if (batch > 3) return;                        // maximal 3 Angebote
+        if (batch > 3) return;
         var notOwned = pool.Where(pu => !owned[owner].Contains(pu)).ToList();
-        if (notOwned.Count < 2) return;               // nichts Neues mehr? Panel auslassen
+        if (notOwned.Count < 2) return;
 
         Shuffle(notOwned);
         var choices = new List<PowerUp> { notOwned[0], notOwned[1] };
@@ -40,9 +40,7 @@ public class PowerUpManager : MonoBehaviour
             owner,
             pu =>
             {
-                // 1) Effekt anwenden
                 pu.Apply(GameManager.Instance, owner);
-                // 2) Als „besessen“ markieren
                 owned[owner].Add(pu);
             });
     }

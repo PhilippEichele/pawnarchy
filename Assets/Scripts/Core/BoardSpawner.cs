@@ -4,8 +4,8 @@ using UnityEngine;
 public class BoardSpawner : MonoBehaviour
 {
     [Header("Logik-Klassen")]
-    [SerializeField] private Board       board;       // dein Board-MonoBehaviour
-    [SerializeField] private Transform   pieceRoot;   // leeres GameObject „Pieces“
+    [SerializeField] private Board       board;
+    [SerializeField] private Transform   pieceRoot;
     [SerializeField] private BoardSquare squarePrefab;
 
     [Header("Weiße Figuren-Prefabs")]
@@ -24,10 +24,8 @@ public class BoardSpawner : MonoBehaviour
     [SerializeField] private GameObject blackQueen;
     [SerializeField] private GameObject blackKing;
 
-    // Singleton
     public static BoardSpawner Instance { get; private set; }
 
-    // Lookup-Tabellen
     private Dictionary<string, GameObject> whitePrefabs;
     private Dictionary<string, GameObject> blackPrefabs;
 
@@ -35,7 +33,6 @@ public class BoardSpawner : MonoBehaviour
     {
         Instance = this;
 
-        // Dictionaries mit den Inspector-Werten füllen
         whitePrefabs = new Dictionary<string, GameObject>
         {
             ["Pawn"]   = whitePawn,
@@ -59,7 +56,6 @@ public class BoardSpawner : MonoBehaviour
 
     private void Start()
     {
-        // Board-Squares generieren
         for (int y = 0; y < 8; y++)
             for (int x = 0; x < 8; x++)
             {
@@ -67,7 +63,6 @@ public class BoardSpawner : MonoBehaviour
                 board.PlaceSquare(sq, new Vector2Int(x, y));
             }
 
-        // Startaufstellung
         SpawnBackRank(Player.White, 0);
         SpawnPawns   (Player.White, 1);
         SpawnBackRank(Player.Black, 7);
@@ -101,9 +96,6 @@ public class BoardSpawner : MonoBehaviour
         board.PlacePiece(piece, pos);
     }
 
-    /// <summary>
-    /// Liefert das Prefab für den gegebenen Typ (z.B. "Queen") und Spieler.
-    /// </summary>
     public GameObject GetPrefab(string pieceKey, Player owner)
     {
         var dict = owner == Player.White ? whitePrefabs : blackPrefabs;

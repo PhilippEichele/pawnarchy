@@ -12,12 +12,10 @@ public class Pawn : ChessPiece
         bool dbl  = f.pawnsAlwaysDouble;
         bool back = f.pawnsBackwards;
 
-        // ---------- 1. Vorwärts (1 Feld) ----------
         Vector2Int fwd = BoardPos + new Vector2Int(0, dir);
         if (board.InBounds(fwd) && board.IsEmpty(fwd))
             moves.Add(fwd);
 
-        // ---------- 2. Doppelschritt ----------
         Vector2Int fwd2 = BoardPos + new Vector2Int(0, 2 * dir);
         bool atStart = Owner == Player.White ? BoardPos.y == 1 : BoardPos.y == 6;
         if (board.InBounds(fwd2) &&
@@ -27,7 +25,6 @@ public class Pawn : ChessPiece
             moves.Add(fwd2);
         }
 
-        // ---------- 3. Rückwärts ----------
         if (back)
         {
             Vector2Int backPos = BoardPos - new Vector2Int(0, dir);
@@ -35,7 +32,6 @@ public class Pawn : ChessPiece
                 moves.Add(backPos);
         }
 
-        // ---------- 4. Diagonal / En Passant ----------
         Vector2Int[] diag = { new(-1, dir), new(1, dir) };
         foreach (var d in diag)
         {

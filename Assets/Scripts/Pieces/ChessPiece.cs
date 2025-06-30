@@ -18,7 +18,6 @@ public abstract class ChessPiece : MonoBehaviour
 		var legal = new List<Vector2Int>();
 		foreach (var mv in GetBaseMoves(board))
 		{
-			// Simulation
 			var from = BoardPos;
 			var to   = mv;
 			var captured = board.GetPiece(to);
@@ -29,14 +28,12 @@ public abstract class ChessPiece : MonoBehaviour
 
 			bool kingStillInCheck = board.IsKingInCheck(Owner);
 
-			// Rückgängig machen
 			board.grid[from.x, from.y] = this;
 			board.grid[to.x, to.y] = captured;
 			Board.Instance.PlacePiece(this, from);
 			if (captured != null)
-				captured.transform.position = board.BoardToWorld(to);  // zurücksetzen
+				captured.transform.position = board.BoardToWorld(to);
 
-			// Nur Züge zulassen, die Check beenden oder nicht erzeugen
 			if (!kingStillInCheck) legal.Add(mv);
 		}
 		return legal;
@@ -47,16 +44,14 @@ public abstract class ChessPiece : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		// Wenn bereits eine Figur ausgewählt ist und dieses Feld markiert
 		if (InputController.Instance.HasActiveSelection &&
 			InputController.Instance.IsHighlighted(BoardPos))
 		{
 			var sq = Board.Instance.GetSquare(BoardPos);
-			InputController.Instance.ClickSquare(sq);  // Capture ausführen
+			InputController.Instance.ClickSquare(sq);
 			return;
 		}
 
-		// Andernfalls: neue Figur auswählen
 		InputController.Instance.ClickPiece(this);
 	}
 }

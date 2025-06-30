@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class Queen : ChessPiece
 {
-    // Für Knight-Moves wiederverwenden
     private static readonly Vector2Int[] L = {
         new( 1,  2), new( 2,  1), new(-1,  2), new(-2,  1),
         new( 1, -2), new( 2, -1), new(-1, -2), new(-2, -1)
@@ -13,10 +12,9 @@ public class Queen : ChessPiece
     {
         var moves = new List<Vector2Int>();
 
-        // ---------- 1. Rook + Bishop Bewegung ----------
         Vector2Int[] dirs = {
-            new( 1,  0), new(-1,  0), new( 0,  1), new( 0, -1), // Rook
-            new( 1,  1), new( 1, -1), new(-1,  1), new(-1, -1)  // Bishop
+            new( 1,  0), new(-1,  0), new( 0,  1), new( 0, -1),
+            new( 1,  1), new( 1, -1), new(-1,  1), new(-1, -1)
         };
 
         foreach (var d in dirs)
@@ -38,7 +36,6 @@ public class Queen : ChessPiece
             }
         }
 
-        // ---------- 2. Power-Up: Knight-L-Moves ----------
         if (PowerUpRules.For(Owner).queenKnightMove)
         {
             foreach (var v in L)

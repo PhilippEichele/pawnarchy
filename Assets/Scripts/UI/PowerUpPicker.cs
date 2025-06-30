@@ -20,7 +20,6 @@ public class PowerUpPicker : MonoBehaviour
         Instance = this;
         panel.gameObject.SetActive(false);
 
-        // Layout-Komponenten einmal anheften
         if (!panel.TryGetComponent(out VerticalLayoutGroup vg))
         {
             vg = panel.gameObject.AddComponent<VerticalLayoutGroup>();
@@ -36,15 +35,12 @@ public class PowerUpPicker : MonoBehaviour
         }
     }
 
-    /// Baut das Panel aus beliebig vielen Power-Ups.
     public void Show(IEnumerable<PowerUp> choices, Player player, Action<PowerUp> onChoice)
     {
         onComplete = onChoice;
 
-        // Alte Buttons entfernen
         foreach (Transform c in panel) Destroy(c.gameObject);
 
-        // Für jede Option einen Button erzeugen
         foreach (var pu in choices)
         {
             var btnGO = Instantiate(buttonPrefab, panel);

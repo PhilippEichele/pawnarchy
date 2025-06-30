@@ -1,5 +1,5 @@
-using System.Collections.Generic;   // ←  sorgt für List<T>
-using UnityEngine;                  // ←  sorgt für Vector2Int
+using System.Collections.Generic;
+using UnityEngine;
 
 public interface IMoveModifier
 {

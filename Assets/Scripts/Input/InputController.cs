@@ -9,7 +9,6 @@ public class InputController : MonoBehaviour
 
     private void Awake() => Instance = this;
 
-    // -------- Figur geklickt --------
     public void ClickPiece(ChessPiece p)
     {
         if (p.Owner != GameManager.Instance.CurrentPlayer) return;
@@ -24,15 +23,13 @@ public class InputController : MonoBehaviour
         }
     }
 
-    // -------- Feld geklickt --------
-    
 	public void ClickSquare(BoardSquare sq)
 	{
 		if (selected == null) return;
 		if (!hilites.Contains(sq)) { Clear(); return; }
 
 		Board.Instance.MovePiece(selected.BoardPos, sq.coord);
-		Clear();                     // ← deaktiviert alle HL-Sprites
+		Clear();
 	}
 
 

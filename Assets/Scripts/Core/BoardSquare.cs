@@ -12,14 +12,14 @@ public class BoardSquare : MonoBehaviour
     {
         if (hl == null) hl = GetComponentInChildren<SpriteRenderer>(true);
         col = GetComponent<Collider2D>();
-        hl.enabled  = false;   // kein Licht
-        col.enabled = false;   //  ➜ fängt keine Klicks ab
+        hl.enabled  = false;
+        col.enabled = false;
     }
 
     public void SetHighlight(bool on)
     {
         hl.enabled  = on;
-        col.enabled = on;      // nur leuchtende Felder sind klickbar
+        col.enabled = on;
     }
 
     private void OnMouseDown() =>

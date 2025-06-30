@@ -19,7 +19,6 @@ public class ClickProbe : MonoBehaviour
         Vector3 wp   = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 p2d  = new Vector2(wp.x, wp.y);
 
-        // Prüfen, welcher Collider an dieser Stelle liegt
         Collider2D hit = Physics2D.OverlapPoint(p2d);
         if (hit == myCol)
             Debug.Log($"[ClickProbe] Genau dieses Stück wurde getroffen: {name}");

@@ -7,17 +7,14 @@ public class TurnSystem : MonoBehaviour
     public static TurnSystem Instance { get; private set; }
     private void Awake() => Instance = this;
 
-    // -------- Zug-Zähler pro Spieler --------
     private readonly Dictionary<Player, int> moves = new()
     {
         { Player.White, 0 },
         { Player.Black, 0 }
     };
 
-    /// (from, to, piece) des letzten Zugs – wichtig für En-Passant u. Ä.
     public (Vector2Int from, Vector2Int to, ChessPiece piece) LastMove { get; private set; }
 
-    /// Fired nach 5 / 10 / 15 Zügen **pro Spieler** → (owner, batchIndex)
     public event Action<Player, int> OnFiveMovesPerPlayer;
 
 	public void RegisterMove(Vector2Int from, Vector2Int to, ChessPiece piece)
@@ -38,7 +35,6 @@ public class TurnSystem : MonoBehaviour
 	}
 
 
-    // --------------------------------------------------------
     public bool CanEnPassant(Vector2Int myFrom, Vector2Int myTo, Player me)
     {
         if (LastMove.piece is not Pawn) return false;

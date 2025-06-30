@@ -21,9 +21,9 @@ public class Rook : ChessPiece
                 else
                 {
                     if (piece.Owner != Owner) moves.Add(pos);
-                    break;                      // eigene Figur oder Treffer: Strahl endet
+                    break;
                 }
-                pos += d;                       // nächsten Schritt entlang der Linie
+                pos += d;
             }
         }
         return moves;

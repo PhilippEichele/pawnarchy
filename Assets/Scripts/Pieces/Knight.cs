@@ -12,7 +12,6 @@ public class Knight : ChessPiece
     {
         var moves = new List<Vector2Int>();
 
-        // Klassische L-Züge
         foreach (var v in L)
         {
             var p = BoardPos + v;
@@ -23,7 +22,6 @@ public class Knight : ChessPiece
                 moves.Add(p);
         }
 
-        // Power-Up: Full-Circle-Leap (2 Felder gerade in jede Richtung)
         if (PowerUpRules.For(Owner).knightStraightLeap)
         {
             Vector2Int[] straight = {

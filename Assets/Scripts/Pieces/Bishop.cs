@@ -20,19 +20,18 @@ public class Bishop : ChessPiece
             {
                 var piece = board.GetPiece(pos);
 
-                if (piece == null)                // leeres Feld
+                if (piece == null)
                 {
                     moves.Add(pos);
                 }
-                else if (piece.Owner != Owner)    // Gegner → schlagen & stoppen
+                else if (piece.Owner != Owner)
                 {
                     moves.Add(pos);
                     break;
                 }
-                else                              // eigene Figur
+                else
                 {
-                    if (!phaseOwn) break;         // blockiert wie üblich
-                    // phasen erlaubt → überspringen, Feld NICHT aufnehmen
+                    if (!phaseOwn) break;
                 }
 
                 pos += d;

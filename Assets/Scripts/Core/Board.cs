@@ -5,33 +5,27 @@ public class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; }
 
-    // ---------- Datenstrukturen ----------
-    public ChessPiece[,] grid    = new ChessPiece[8, 8];   // Figuren
-    public BoardSquare[,] squares = new BoardSquare[8, 8]; // Felder
+    public ChessPiece[,] grid    = new ChessPiece[8, 8];
+    public BoardSquare[,] squares = new BoardSquare[8, 8];
 
-    // ---------- Layout ----------
     [Header("Layout")]
     public float tileSize = 1f;
-    public Vector2 origin;                     // wird im Awake berechnet
+    public Vector2 origin;
     [SerializeField] private SpriteRenderer boardImage;
 
-    // ---------- Awake (einzige Version!) ----------
     private void Awake()
     {
-        Instance = this;                       // Singleton-Zuweisung
+        Instance = this;
 
-        // Board-Grafik finden
         if (boardImage == null)
             boardImage = GetComponentInChildren<SpriteRenderer>();
 
-        // tileSize & origin ableiten
         tileSize = boardImage.bounds.size.x / 8f;
         float half = boardImage.bounds.size.x * 0.5f;
         origin = new Vector2(-half + tileSize * 0.5f,
                              -half + tileSize * 0.5f);
     }
 
-    // ---------- Mapping ----------
     public Vector3 BoardToWorld(Vector2Int p)
     {
         return transform.position +
@@ -48,7 +42,6 @@ public class Board : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
-    // ---------- Square-Verwaltung ----------
     public void PlaceSquare(BoardSquare sq, Vector2Int c)
     {
         squares[c.x, c.y] = sq;
@@ -57,7 +50,6 @@ public class Board : MonoBehaviour
     }
     public BoardSquare GetSquare(Vector2Int c) => squares[c.x, c.y];
 
-    // ---------- Figuren-Logik ----------
     public ChessPiece GetPiece(Vector2Int pos) => grid[pos.x, pos.y];
 
     public void PlacePiece(ChessPiece piece, Vector2Int pos)
@@ -69,17 +61,14 @@ public class Board : MonoBehaviour
 
 	public void MovePiece(Vector2Int from, Vector2Int to)
     {
-        // 1) Referenzen
         ChessPiece piece  = grid[from.x, from.y];
         ChessPiece target = grid[to.x,   to.y];
 
-        // 2) Normales Schlagen
         if (target != null && target.Owner != piece.Owner)
         {
             Destroy(target.gameObject);
         }
 
-        // 3) En Passant
         bool isPawn      = piece is Pawn;
         bool diagonal    = Mathf.Abs(to.x - from.x) == 1 && Mathf.Abs(to.y - from.y) == 1;
         bool squareEmpty = target == null;
@@ -92,7 +81,6 @@ public class Board : MonoBehaviour
             grid[enemyPos.x, enemyPos.y] = null;
         }
 
-        // 4) Rochade
         if (piece is King && Mathf.Abs(to.x - from.x) == 2)
         {
             int dir  = (to.x - from.x) > 0 ? 1 : -1;
@@ -111,21 +99,17 @@ public class Board : MonoBehaviour
             }
         }
 
-        // 5) Promotion?
         bool promotionRank = piece is Pawn
             && ((piece.Owner == Player.White && to.y == 7)
              || (piece.Owner == Player.Black && to.y == 0));
 
         if (promotionRank)
         {
-            // Alten Bauern entfernen
             Destroy(piece.gameObject);
             grid[from.x, from.y] = null;
 
-            // Promotion-Dialog anzeigen
             PromotionManager.Instance.Show(to, piece.Owner, (string selectedType) =>
 			{
-				// **Hier** spawnst du jetzt genau einmal den neuen Stein:
 				GameObject prefab = BoardSpawner.Instance.GetPrefab(selectedType, piece.Owner);
 				if (prefab == null)
 				{
@@ -139,21 +123,18 @@ public class Board : MonoBehaviour
 
 				Board.Instance.PlacePiece(newPiece, to);
 
-				// Zug abschließen
 				TurnSystem.Instance.RegisterMove(from, to, newPiece);
 				GameManager.Instance.EndTurn();
 			});            
-			return; // Rest überspringen
+			return;
         }
 
-        // 6) Normaler Zug
         grid[to.x,   to.y]   = piece;
         grid[from.x, from.y] = null;
         piece.BoardPos           = to;
         piece.transform.position = BoardToWorld(to);
         piece.HasMoved           = true;
 
-        // 7) Abschluss
         TurnSystem.Instance.RegisterMove(from, to, piece);
         GameManager.Instance.EndTurn();
     }
@@ -178,7 +159,6 @@ public class Board : MonoBehaviour
 		{
 			if (piece == null || piece.Owner == defender) continue;
 
-			// Nur Grundzüge prüfen – reicht für Rochade
 			foreach (var move in piece.GetBaseMoves(this))
 				if (move == pos) return true;
 		}
@@ -188,13 +168,11 @@ public class Board : MonoBehaviour
 
 	public bool IsKingInCheck(Player player)
 	{
-		// König suchen
 		Vector2Int kingPos = default;
 		foreach (var piece in grid)
 			if (piece is King k && k.Owner == player)
 				kingPos = piece.BoardPos;
 
-		// Angriffsprüfung ähnlich wie SquareIsAttacked
 		foreach (var piece in grid)
 		{
 			if (piece == null || piece.Owner == player) continue;

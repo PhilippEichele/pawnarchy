@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 		if (IsCheckmate())
 		{
 			Player winner = currentPlayer == Player.White ? Player.Black : Player.White;
-			WinnerScreen.Instance.Show(winner);      // KEIN Instantiate, KEIN Resources.Load!
+			WinnerScreen.Instance.Show(winner);
 			return;
 		}
 
@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 	{
 		Player p = CurrentPlayer;
 		if (!Board.Instance.IsKingInCheck(p)) return false;
-		// Prüfen: Hat irgendeine Figur einen legalen Zug?
 		foreach (var piece in Board.Instance.GetAllPieces<ChessPiece>(p))
 			if (piece.GetLegalMoves(Board.Instance).Count > 0)
 				return false;
